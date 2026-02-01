@@ -15,6 +15,13 @@
 * VSCodeインストール済み
 * Node.jsインストール済み
 
+```
+PS F:\Study\playwright\agents-learning> node -v
+v22.20.0
+PS F:\Study\playwright\agents-learning> npm -v
+11.6.2
+```
+
 ### インストール
 
 ```
@@ -24,7 +31,7 @@ npx playwright init-agents --loop=vscode
 
 ## テスト対象
 
-Hotel Planisphereをローカルにforkしたやつ
+Hotel Planisphereをローカルにforkしたやつ  
 https://github.com/izu-san/hotel-example-site
 
 アクセス先: http://127.0.0.1:8080/ja/
@@ -35,5 +42,36 @@ forkしたやつを対象にした理由：サイト内容を変更してHealer�
 
 ### 最低限の指示のみ
 
-* チャット内容: docs/minimal/チャット内容.md
-* Planner成果物: 
+テスト内容やテストコードの生成方法もすべて丸投げ。  
+何も指示を出していない場合。
+
+* チャット内容: [docs/minimal/チャット内容.md](docs/minimal/チャット内容.md)
+* Planner成果物: [specs/minimal/e2e-plan.md](specs/minimal/e2e-plan.md)
+* Generator成果物: [tests/minimal/*.ts](tests/minimal)
+
+### 色々指示だしたやつ
+
+POM, BDD, Gherkin記法で出力させたやつ。
+
+* チャット内容: [docs/standard/チャット内容.md](docs/standard/チャット内容.md)
+* Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
+* Generator成果物: [tests/standard/*.ts](tests/standard)
+
+### Healerおためし
+
+* チャット内容: [docs/healer/チャット内容.md](docs/healer/チャット内容.md)
+
+## スクリプト一覧
+
+以下は `package.json` に定義されているスクリプトの一覧です。
+
+### Minimal テスト用
+
+- `npm run test:minimal` : Minimal テストを実行します。
+
+### Standard テスト用
+
+- `npm run bddgen:standard` : Standard テストの BDD ファイルを生成します。
+- `npm run test:standard` : Standard テストを実行します。
+- `npm run test:standard:vr` : Standard テストのビジュアルリグレッションを実行します。
+- `npm run test:standard:all` : BDD ファイル生成後に Standard テストを実行します。
