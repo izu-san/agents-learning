@@ -78,6 +78,19 @@ POM, BDD, Gherkin記法で出力させたやつ。
 - Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
 - Generator成果物: [tests/standard/\*.ts](tests/standard)
 
+## ディレクトリ構成（簡易）
+
+- [docs/](docs/) : 生成物や補足ドキュメント
+- [specs/](specs/) : Planner のテスト計画（最小/標準）
+- [tests/](tests/) : 実装されたテストコード
+  - [tests/minimal/](tests/minimal/) : 素のPlaywrightテスト一式
+  - [tests/standard/](tests/standard/) : BDD + POM + データ駆動構成
+    - [tests/standard/features/](tests/standard/features/) : Gherkinシナリオ
+    - [tests/standard/steps/](tests/standard/steps/) : Step定義
+    - [tests/standard/pages/](tests/standard/pages/) : Page Object
+    - [tests/standard/data/](tests/standard/data/) : テストデータ
+    - [tests/standard/fixtures/](tests/standard/fixtures/) : フィクスチャ/共通設定
+
 ## スクリプト一覧
 
 以下は `package.json` に定義されているスクリプトの一覧です。
