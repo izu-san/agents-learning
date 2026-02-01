@@ -5,7 +5,7 @@
 - OS: Windows11 Home 24H2
 - VSCode: 1.108.1
 - Node.js: v22.20.0
-- AIツール: GitHub Copilot
+- AIツール: GitHub Copilot Pro
 - モデル: GPT-5.2-Codex
 
 ## 環境構築
@@ -27,6 +27,11 @@ PS F:\Study\playwright\agents-learning> npm -v
 ```
 npm init playwright@latest
 npx playwright init-agents --loop=vscode
+```
+
+```
+PS F:\Study\playwright\agents-learning> npx playwright --version
+Version 1.58.1
 ```
 
 ## テスト対象
