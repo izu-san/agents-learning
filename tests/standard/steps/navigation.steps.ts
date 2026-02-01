@@ -1,29 +1,26 @@
 import { expect } from '@playwright/test';
-import { createBdd, test } from 'playwright-bdd';
-import { HomePage } from '../pages/home-page';
+import { createBdd } from 'playwright-bdd';
+import { test } from '../fixtures/test';
 import { urls, takeFullPageScreenshot } from '../helpers/app';
 
 // NOTE: Use createBdd for playwright-bdd v7 API.
 const { Given, When, Then } = createBdd(test);
 
-Given('新しいブラウザ状態でホームを開く', async ({ page }) => {
-  const home = new HomePage(page);
-  await home.open();
+Given('新しいブラウザ状態でホームを開く', async ({ pages }) => {
+  await pages.home.open();
 });
 
-Given('新しいブラウザ状態でビューポートをモバイル幅に設定しホームを開く', async ({ page }) => {
+Given('新しいブラウザ状態でビューポートをモバイル幅に設定しホームを開く', async ({ page, pages }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  const home = new HomePage(page);
-  await home.open();
+  await pages.home.open();
 });
 
 Then('ページタイトルに「HOTEL PLANISPHERE」が含まれる', async ({ page }) => {
   await expect(page).toHaveTitle(/HOTEL PLANISPHERE/);
 });
 
-Then('主要見出しが表示される', async ({ page }) => {
-  const home = new HomePage(page);
-  await expect(home.heading).toBeVisible();
+Then('主要見出しが表示される', async ({ pages }) => {
+  await expect(pages.home.heading).toBeVisible();
 });
 
 // NOTE: Avoid '/' in step text to prevent matching issues.
@@ -31,33 +28,28 @@ Then('画面全体のビジュアルスナップショットを保存・比較�
   await takeFullPageScreenshot(page, 'full');
 });
 
-Then('お知らせの見出しと本文が表示される', async ({ page }) => {
-  const home = new HomePage(page);
-  await expect(home.noticeHeading).toBeVisible();
-  await expect(home.noticeContent).toBeVisible();
+Then('お知らせの見出しと本文が表示される', async ({ pages }) => {
+  await expect(pages.home.noticeHeading).toBeVisible();
+  await expect(pages.home.noticeContent).toBeVisible();
 });
 
-Then('ナビゲーションに主要メニューが表示される', async ({ page }) => {
-  const home = new HomePage(page);
-  await expect(home.navHome).toBeVisible();
-  await expect(home.navPlans).toBeVisible();
-  await expect(home.navSignup).toBeVisible();
-  await expect(home.navLogin).toBeVisible();
+Then('ナビゲーションに主要メニューが表示される', async ({ pages }) => {
+  await expect(pages.home.navHome).toBeVisible();
+  await expect(pages.home.navPlans).toBeVisible();
+  await expect(pages.home.navSignup).toBeVisible();
+  await expect(pages.home.navLogin).toBeVisible();
 });
 
-When('「宿泊予約」をクリックする', async ({ page }) => {
-  const home = new HomePage(page);
-  await home.navPlans.click();
+When('「宿泊予約」をクリックする', async ({ pages }) => {
+  await pages.home.navPlans.click();
 });
 
-When('「会員登録」をクリックする', async ({ page }) => {
-  const home = new HomePage(page);
-  await home.navSignup.click();
+When('「会員登録」をクリックする', async ({ pages }) => {
+  await pages.home.navSignup.click();
 });
 
-When('「ログイン」をクリックする', async ({ page }) => {
-  const home = new HomePage(page);
-  await home.navLogin.click();
+When('「ログイン」をクリックする', async ({ pages }) => {
+  await pages.home.navLogin.click();
 });
 
 Then('宿泊プラン一覧ページに遷移する', async ({ page }) => {
@@ -72,11 +64,10 @@ Then('ログインページに遷移する', async ({ page }) => {
   await expect(page).toHaveURL(urls.login);
 });
 
-Then('モバイル幅でナビゲーションと主要見出しが表示される', async ({ page }) => {
-  const home = new HomePage(page);
+Then('モバイル幅でナビゲーションと主要見出しが表示される', async ({ page, pages }) => {
   // NOTE: Some mobile layouts remove the H1; fall back to title check.
-  if (await home.heading.count()) {
-    await expect(home.heading).toBeVisible();
+  if (await pages.home.heading.count()) {
+    await expect(pages.home.heading).toBeVisible();
   } else {
     await expect(page).toHaveTitle(/HOTEL PLANISPHERE/);
   }

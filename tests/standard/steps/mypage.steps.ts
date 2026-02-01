@@ -1,27 +1,20 @@
 import { expect } from '@playwright/test';
-import { createBdd, test } from 'playwright-bdd';
-import { LoginPage } from '../pages/login-page';
-import { MyPage } from '../pages/mypage-page';
-import { SignupPage } from '../pages/signup-page';
-import { users, signupDefaults } from '../data/users';
+import { createBdd } from 'playwright-bdd';
+import { test } from '../fixtures/test';
+import { signupDefaults } from '../data/users';
 import { signupTestData } from '../data/signup';
-import { logoutIfLoggedIn, uniqueEmail, urls } from '../helpers/app';
+import { uniqueEmail, urls } from '../helpers/app';
 import { getScenarioState, setScenarioState } from '../helpers/state';
 
 // NOTE: Use createBdd for playwright-bdd v7 API.
 const { Given, When, Then } = createBdd(test);
 
-const avatarPath = 'tests/standard/fixtures/avatar.svg';
-
-Given('新しいブラウザ状態で既存ユーザでログインする', async ({ page }) => {
-  const login = new LoginPage(page);
-  await login.open();
-  await login.login(users.premium.email, users.premium.password);
+Given('新しいブラウザ状態で既存ユーザでログインする', async ({ auth }) => {
+  await auth.loginAs('premium');
 });
 
-When('「ログアウト」を押す', async ({ page }) => {
-  const mypage = new MyPage(page);
-  await mypage.logout.click();
+When('「ログアウト」を押す', async ({ pages }) => {
+  await pages.mypage.logout.click();
 });
 
 Then('ホームまたはログイン画面へ遷移する', async ({ page }) => {
@@ -34,8 +27,8 @@ Then('再度 mypage.html に直接アクセスすると未ログイン扱いに�
   await expect(page).toHaveURL(/(login|index)\.html/);
 });
 
-When('ログアウトを実行する', async ({ page }) => {
-  await logoutIfLoggedIn(page);
+When('ログアウトを実行する', async ({ auth }) => {
+  await auth.logoutIfLoggedIn();
 });
 
 // NOTE: Avoid '/' in step text to prevent matching issues.
@@ -53,43 +46,39 @@ Then(
   },
 );
 
-Given('新しいブラウザ状態で会員登録しマイページへ遷移する', async ({ page }) => {
-  const signup = new SignupPage(page);
+Given('新しいブラウザ状態で会員登録しマイページへ遷移する', async ({ pages }) => {
   const testInfo = test.info();
   const email = uniqueEmail(testInfo, 'newuser');
   const password = signupDefaults.password;
-  await signup.open();
-  await signup.fillRequired({
+  await pages.signup.open();
+  await pages.signup.fillRequired({
     email,
     password,
     confirmPassword: password,
     name: signupTestData.names.newUser,
     membership: signupDefaults.membership,
   });
-  await signup.submitForm();
+  await pages.signup.submitForm();
   setScenarioState({ email, password, name: signupTestData.names.newUser });
 });
 
-Then('登録情報が表示される', async ({ page }) => {
-  const mypage = new MyPage(page);
+Then('登録情報が表示される', async ({ pages }) => {
   const { email, name } = getScenarioState();
   if (email) {
-    await expect(mypage.emailValue).toContainText(email);
+    await expect(pages.mypage.emailValue).toContainText(email);
   }
   if (name) {
-    await expect(mypage.nameValue).toContainText(name);
+    await expect(pages.mypage.nameValue).toContainText(name);
   }
 });
 
-Then('アイコン設定や退会の操作が有効になる', async ({ page }) => {
-  const mypage = new MyPage(page);
-  await expect(mypage.iconButton).toBeEnabled();
-  await expect(mypage.withdrawButton).toBeEnabled();
+Then('アイコン設定や退会の操作が有効になる', async ({ pages }) => {
+  await expect(pages.mypage.iconButton).toBeEnabled();
+  await expect(pages.mypage.withdrawButton).toBeEnabled();
 });
 
-When('アイコン設定で画像を設定する', async ({ page }) => {
-  const mypage = new MyPage(page);
-  await mypage.iconButton.click();
+When('アイコン設定で画像を設定する', async ({ page, pages, avatarPath }) => {
+  await pages.mypage.iconButton.click();
   await expect(page).toHaveURL(/icon\.html/);
   const fileInput = page.locator('input[type="file"]');
   if ((await fileInput.count()) > 0) {
@@ -109,50 +98,45 @@ Then('マイページにアイコンが表示される', async ({ page }) => {
   await expect(page.locator('img')).toHaveCount(1);
 });
 
-When('退会操作を実行する', async ({ page }) => {
+When('退会操作を実行する', async ({ page, pages }) => {
   page.once('dialog', (dialog) => dialog.accept());
-  const mypage = new MyPage(page);
-  await mypage.withdrawButton.click();
+  await pages.mypage.withdrawButton.click();
 });
 
-Then('ユーザ情報が削除されログインできなくなる', async ({ page }) => {
+Then('ユーザ情報が削除されログインできなくなる', async ({ pages }) => {
   const { email, password } = getScenarioState();
-  const login = new LoginPage(page);
-  await login.open();
+  await pages.login.open();
   if (email && password) {
-    await login.login(email, password);
+    await pages.login.login(email, password);
   }
-  await expect(page).toHaveURL(urls.login);
+  await expect(pages.login.page).toHaveURL(urls.login);
 });
 
-Then('【追加】マイページに性別が表示される', async ({ page }) => {
-  const mypage = new MyPage(page);
-  await expect(mypage.genderValue).toBeVisible();
-  await expect(mypage.genderValue).toHaveText(/.+/);
+Then('【追加】マイページに性別が表示される', async ({ pages }) => {
+  await expect(pages.mypage.genderValue).toBeVisible();
+  await expect(pages.mypage.genderValue).toHaveText(/.+/);
 });
 
-Then('【追加】年齢が未登録の場合「未登録」と表示される', async ({ page }) => {
-  const mypage = new MyPage(page);
-  await expect(mypage.ageValue).toContainText('未登録');
+Then('【追加】年齢が未登録の場合「未登録」と表示される', async ({ pages }) => {
+  await expect(pages.mypage.ageValue).toContainText('未登録');
 });
 
-When('【追加】新規会員登録時に性別と年齢を入力してログインする', async ({ page }) => {
-  const signup = new SignupPage(page);
+When('【追加】新規会員登録時に性別と年齢を入力してログインする', async ({ pages, auth }) => {
   const testInfo = test.info();
   const email = uniqueEmail(testInfo, 'mypage-gender-age');
   const password = signupDefaults.password;
-  await logoutIfLoggedIn(page);
-  await signup.open();
-  await signup.fillRequired({
+  await auth.logoutIfLoggedIn();
+  await pages.signup.open();
+  await pages.signup.fillRequired({
     email,
     password,
     confirmPassword: password,
     name: signupTestData.names.newUser,
     membership: signupDefaults.membership,
   });
-  await signup.gender.selectOption('女性');
-  await signup.age.fill('28');
-  await signup.submitForm();
+  await pages.signup.gender.selectOption('女性');
+  await pages.signup.age.fill('28');
+  await pages.signup.submitForm();
   setScenarioState({
     email,
     password,
@@ -162,13 +146,12 @@ When('【追加】新規会員登録時に性別と年齢を入力してログ�
   });
 });
 
-Then('【追加】マイページに入力した性別と年齢が表示される', async ({ page }) => {
-  const mypage = new MyPage(page);
+Then('【追加】マイページに入力した性別と年齢が表示される', async ({ pages }) => {
   const { gender, age } = getScenarioState();
   if (gender) {
-    await expect(mypage.genderValue).toContainText(gender);
+    await expect(pages.mypage.genderValue).toContainText(gender);
   }
   if (age) {
-    await expect(mypage.ageValue).toContainText(age);
+    await expect(pages.mypage.ageValue).toContainText(age);
   }
 });

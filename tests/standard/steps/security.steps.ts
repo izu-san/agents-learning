@@ -1,8 +1,6 @@
 import { expect } from '@playwright/test';
-import { createBdd, test } from 'playwright-bdd';
-import { LoginPage } from '../pages/login-page';
-import { SignupPage } from '../pages/signup-page';
-import { ReservePage } from '../pages/reserve-page';
+import { createBdd } from 'playwright-bdd';
+import { test } from '../fixtures/test';
 import { injectionInputs } from '../data/security';
 import { signupDefaults } from '../data/users';
 import { uniqueEmail, urls } from '../helpers/app';
@@ -39,9 +37,8 @@ Then('予約情報が表示されないか予約画面へ誘導される', async
   }
 });
 
-Given('reserve.html の plan-id を不正な値に改ざんしてアクセスする', async ({ page }) => {
-  const reserve = new ReservePage(page);
-  await reserve.open('invalid');
+Given('reserve.html の plan-id を不正な値に改ざんしてアクセスする', async ({ pages }) => {
+  await pages.reserve.open('invalid');
 });
 
 Then('安全なフォールバックが行われる', async ({ page }) => {
@@ -51,9 +48,8 @@ Then('安全なフォールバックが行われる', async ({ page }) => {
 
 Given(
   '新しいブラウザ状態で reserve.html に plan-id を負数で指定してアクセスする',
-  async ({ page }) => {
-    const reserve = new ReservePage(page);
-    await reserve.open(-1);
+  async ({ pages }) => {
+    await pages.reserve.open(-1);
   },
 );
 
@@ -64,9 +60,8 @@ Then('例外やクラッシュが発生せず安全に扱われる', async ({ pa
 
 Given(
   '新しいブラウザ状態で reserve.html に plan-id を極端に大きい数値で指定してアクセスする',
-  async ({ page }) => {
-    const reserve = new ReservePage(page);
-    await reserve.open(999999);
+  async ({ pages }) => {
+    await pages.reserve.open(999999);
   },
 );
 
@@ -76,9 +71,8 @@ Then('エラー表示または既定プランへのフォールバックが行�
 
 Given(
   '新しいブラウザ状態で reserve.html に plan-id を文字列で指定してアクセスする',
-  async ({ page }) => {
-    const reserve = new ReservePage(page);
-    await reserve.open('abc');
+  async ({ pages }) => {
+    await pages.reserve.open('abc');
   },
 );
 
@@ -87,11 +81,10 @@ Then('入力が無害化され安全な画面に遷移する', async ({ page }) 
 });
 
 // NOTE: Avoid '/' in step text to prevent matching issues.
-When('メールとパスワードにSQLi・XSS風の文字列を入力してログインする', async ({ page }) => {
-  const login = new LoginPage(page);
-  await login.email.fill(injectionInputs.sql);
-  await login.password.fill(injectionInputs.xss);
-  await login.submit.click();
+When('メールとパスワードにSQLi・XSS風の文字列を入力してログインする', async ({ pages }) => {
+  await pages.login.email.fill(injectionInputs.sql);
+  await pages.login.password.fill(injectionInputs.xss);
+  await pages.login.submit.click();
 });
 
 Then('ログインに失敗する', async ({ page }) => {
@@ -106,19 +99,18 @@ Then('エラーメッセージが安全に表示される', async ({ page }) => 
   await expect(page.locator('#login-button')).toBeVisible();
 });
 
-When('氏名や住所にスクリプト文字列を入力して登録する', async ({ page }) => {
-  const signup = new SignupPage(page);
+When('氏名や住所にスクリプト文字列を入力して登録する', async ({ pages }) => {
   const testInfo = test.info();
   const email = uniqueEmail(testInfo, 'xss');
-  await signup.fillRequired({
+  await pages.signup.fillRequired({
     email,
     password: signupDefaults.password,
     confirmPassword: signupDefaults.password,
     name: injectionInputs.xss,
     membership: signupDefaults.membership,
   });
-  await signup.address.fill(injectionInputs.xss);
-  await signup.submitForm();
+  await pages.signup.address.fill(injectionInputs.xss);
+  await pages.signup.submitForm();
 });
 
 Then('マイページで文字列が安全に表示される', async ({ page }) => {
