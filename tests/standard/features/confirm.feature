@@ -1,5 +1,6 @@
 Feature: 予約確認/完了
 
+  @confirm @visual @smoke
   Scenario: 予約確認画面の表示と完了ダイアログ
     Given 新しいブラウザ状態で予約フォームを有効な値で入力し確認画面へ進む
     Then 入力内容が確認画面に反映される
@@ -10,6 +11,7 @@ Feature: 予約確認/完了
     When ダイアログを閉じる
     Then 確認画面に戻るか完了状態が維持される
 
+  @confirm @regression
   Scenario: 予約完了後の再読込/戻る挙動
     Given 新しいブラウザ状態で予約フォームを有効な値で入力し完了まで進める
     When 完了後にページを再読み込みする

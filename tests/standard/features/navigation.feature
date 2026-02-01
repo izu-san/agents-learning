@@ -1,5 +1,6 @@
 Feature: ホーム/ナビゲーション
 
+  @navigation @visual @smoke
   Scenario: ホーム表示と主要コンテンツの確認（ビジュアル含む）
     Given 新しいブラウザ状態でホームを開く
     Then ページタイトルに「HOTEL PLANISPHERE」が含まれる
@@ -7,6 +8,7 @@ Feature: ホーム/ナビゲーション
     And 画面全体のビジュアルスナップショットを保存・比較する
     And お知らせの見出しと本文が表示される
 
+  @navigation @smoke
   Scenario: グローバルナビゲーション遷移
     Given 新しいブラウザ状態でホームを開く
     Then ナビゲーションに主要メニューが表示される
@@ -17,6 +19,7 @@ Feature: ホーム/ナビゲーション
     When 「ログイン」をクリックする
     Then ログインページに遷移する
 
+  @navigation @visual @responsive
   Scenario: レスポンシブ表示（モバイル）ビジュアル
     Given 新しいブラウザ状態でビューポートをモバイル幅に設定しホームを開く
     Then モバイル幅でナビゲーションと主要見出しが表示される

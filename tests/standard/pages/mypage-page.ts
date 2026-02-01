@@ -10,6 +10,8 @@ export class MyPage {
   readonly emailValue: Locator;
   readonly nameValue: Locator;
   readonly rankValue: Locator;
+  readonly genderValue: Locator;
+  readonly ageValue: Locator;
   readonly iconFile: Locator;
 
   constructor(page: Page) {
@@ -21,6 +23,8 @@ export class MyPage {
     this.emailValue = page.getByRole('heading', { name: 'メールアドレス' }).locator('..').locator('p');
     this.nameValue = page.getByRole('heading', { name: '氏名' }).locator('..').locator('p');
     this.rankValue = page.getByRole('heading', { name: '会員ランク' }).locator('..').locator('p');
+    this.genderValue = page.getByRole('heading', { name: '性別' }).locator('..').locator('p');
+    this.ageValue = page.getByRole('heading', { name: '年齢' }).locator('..').locator('p');
     this.iconFile = page.locator('input[type="file"]');
   }
 

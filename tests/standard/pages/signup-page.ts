@@ -12,6 +12,7 @@ export class SignupPage {
   readonly address: Locator;
   readonly phone: Locator;
   readonly gender: Locator;
+  readonly age: Locator;
   readonly birthday: Locator;
   readonly submit: Locator;
 
@@ -26,6 +27,7 @@ export class SignupPage {
     this.address = page.getByRole('textbox', { name: '住所' });
     this.phone = page.getByRole('textbox', { name: '電話番号' });
     this.gender = page.getByRole('combobox', { name: '性別' });
+    this.age = page.getByRole('spinbutton', { name: '年齢' });
     this.birthday = page.getByRole('textbox', { name: '生年月日' });
     this.submit = page.getByRole('button', { name: '登録' });
   }

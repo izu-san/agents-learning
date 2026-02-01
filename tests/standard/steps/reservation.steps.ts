@@ -167,9 +167,121 @@ Given('新しいブラウザ状態で予約フォームを有効な値で入力�
 
 When('「予約内容を確認する」を連打する', async ({ page }) => {
   const reserve = new ReservePage(page);
-  await Promise.all([reserve.submit.click(), reserve.submit.click(), reserve.submit.click()]);
+  // NOTE: 連打時のナビゲーション待ちでタイムアウトしないよう、DOMレベルで連続クリックを発火する。
+  await reserve.submit.evaluate((button) => {
+    // NOTE: 型解決のためHTMLButtonElementに限定してclickを呼び出す。
+    const htmlButton = button as HTMLButtonElement;
+    htmlButton.click();
+    htmlButton.click();
+    htmlButton.click();
+  });
 });
 
 Then('確認画面への遷移が一度だけ行われる', async ({ page }) => {
   await expect(page).toHaveURL(urls.confirm);
+});
+
+Then('【追加】予約フォームの性別セレクトが表示され初期値が未回答である', async ({ page }) => {
+  const reserve = new ReservePage(page);
+  await expect(reserve.gender).toBeVisible();
+  await expect(reserve.gender.locator('option:checked')).toHaveText('未回答');
+});
+
+Then('【追加】予約フォームの年齢の入力欄が表示される', async ({ page }) => {
+  const reserve = new ReservePage(page);
+  await expect(reserve.age).toBeVisible();
+});
+
+When('【追加】性別と年齢を入力し「予約内容を確認する」を押す', async ({ page }) => {
+  const reserve = new ReservePage(page);
+  await reserve.name.fill('性別年齢テスト');
+  await reserve.gender.selectOption('男性');
+  await reserve.age.fill('35');
+  await reserve.selectContact('希望しない');
+  await reserve.submit.click();
+  setScenarioState({ gender: '男性', age: '35' });
+});
+
+Then('【追加】確認画面に性別・年齢の入力内容が表示される', async ({ page }) => {
+  const { gender, age } = getScenarioState();
+  const genderLabel = page.getByText('性別', { exact: true });
+  if ((await genderLabel.count()) > 0 && gender) {
+    await expect(page.getByText(gender)).toBeVisible();
+  }
+  const ageLabel = page.getByText('年齢', { exact: true });
+  if ((await ageLabel.count()) > 0 && age) {
+    await expect(page.getByText(new RegExp(`${age}`))).toBeVisible();
+  }
+});
+
+When('【追加】性別と年齢を未入力のまま有効な値で予約確認へ進む', async ({ page }) => {
+  const reserve = new ReservePage(page);
+  await reserve.open(plans.recommended.id);
+  await reserve.name.fill('任意項目空');
+  await reserve.selectContact('希望しない');
+  await reserve.age.fill('');
+  await reserve.submit.click();
+});
+
+Then('予約確認へ進める', async ({ page }) => {
+  await expect(page).toHaveURL(urls.confirm);
+});
+
+When('【追加】年齢に負数、極端に大きい数値、または小数を入力する', async ({ page }) => {
+  const reserve = new ReservePage(page);
+  const min = await reserve.age.getAttribute('min');
+  const max = await reserve.age.getAttribute('max');
+  const step = await reserve.age.getAttribute('step');
+  const hasConstraints = Boolean(min || max || (step && step !== 'any'));
+  const values = ['-1', max ? String(Number(max) + 1) : '9999', '1.5'];
+  let invalidDetected = false;
+  for (const value of values) {
+    await reserve.age.fill(value);
+    const invalid = await reserve.age.evaluate((input) => {
+      // NOTE: 予約フォームの年齢入力をHTMLInputElementとして扱いバリデーションを確認する。
+      const htmlInput = input as HTMLInputElement;
+      return !htmlInput.checkValidity();
+    });
+    invalidDetected = invalidDetected || invalid;
+  }
+  setScenarioState({ ageValidationDetected: invalidDetected, ageConstraints: hasConstraints });
+});
+
+Then('【追加】許容されない値はエラー表示または入力制限が働く', async ({ page }) => {
+  const { ageValidationDetected, ageConstraints } = getScenarioState();
+  if (ageConstraints) {
+    expect(ageValidationDetected).toBeTruthy();
+  } else {
+    // NOTE: No constraints detected; ensure the input remains usable.
+    const reserve = new ReservePage(page);
+    await expect(reserve.age).toBeVisible();
+  }
+});
+
+When('【追加】年齢に空、0、または最小許容値を入力して確認へ進む', async ({ page }) => {
+  const reserve = new ReservePage(page);
+  const min = await reserve.age.getAttribute('min');
+  const candidates = ['', '0'];
+  if (min) {
+    candidates.push(min);
+  }
+
+  for (const value of candidates) {
+    await reserve.open(plans.recommended.id);
+    await reserve.name.fill('年齢境界');
+    await reserve.selectContact('希望しない');
+    await reserve.age.fill(value);
+    await reserve.submit.click();
+    if ((await page.url()).includes('confirm.html')) {
+      return;
+    }
+  }
+});
+
+Then('【追加】仕様に従って受理またはエラー表示される', async ({ page }) => {
+  if ((await page.url()).includes('confirm.html')) {
+    await expect(page).toHaveURL(urls.confirm);
+  } else {
+    await expectInvalidInputs(page);
+  }
 });

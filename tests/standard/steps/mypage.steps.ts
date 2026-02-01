@@ -121,3 +121,45 @@ Then('ユーザ情報が削除されログインできなくなる', async ({ pa
   }
   await expect(page).toHaveURL(urls.login);
 });
+
+Then('【追加】マイページに性別が表示される', async ({ page }) => {
+  const mypage = new MyPage(page);
+  await expect(mypage.genderValue).toBeVisible();
+  await expect(mypage.genderValue).toHaveText(/.+/);
+});
+
+Then('【追加】年齢が未登録の場合「未登録」と表示される', async ({ page }) => {
+  const mypage = new MyPage(page);
+  await expect(mypage.ageValue).toContainText('未登録');
+});
+
+When('【追加】新規会員登録時に性別と年齢を入力してログインする', async ({ page }) => {
+  const signup = new SignupPage(page);
+  const testInfo = test.info();
+  const email = uniqueEmail(testInfo, 'mypage-gender-age');
+  const password = signupDefaults.password;
+  await logoutIfLoggedIn(page);
+  await signup.open();
+  await signup.fillRequired({
+    email,
+    password,
+    confirmPassword: password,
+    name: signupTestData.names.newUser,
+    membership: signupDefaults.membership,
+  });
+  await signup.gender.selectOption('女性');
+  await signup.age.fill('28');
+  await signup.submitForm();
+  setScenarioState({ email, password, name: signupTestData.names.newUser, gender: '女性', age: '28' });
+});
+
+Then('【追加】マイページに入力した性別と年齢が表示される', async ({ page }) => {
+  const mypage = new MyPage(page);
+  const { gender, age } = getScenarioState();
+  if (gender) {
+    await expect(mypage.genderValue).toContainText(gender);
+  }
+  if (age) {
+    await expect(mypage.ageValue).toContainText(age);
+  }
+});

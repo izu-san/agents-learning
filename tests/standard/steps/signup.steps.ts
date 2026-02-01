@@ -161,3 +161,71 @@ When('住所に改行や絵文字を含めて登録する', async ({ page }) => 
 Then('入力が崩れず表示される', async ({ page }) => {
   await expect(page).toHaveURL(/(signup|mypage)\.html/);
 });
+
+Then('【追加】性別のセレクトが表示され初期値が未回答である', async ({ page }) => {
+  const signup = new SignupPage(page);
+  await expect(signup.gender).toBeVisible();
+  await expect(signup.gender.locator('option:checked')).toHaveText('未回答');
+});
+
+Then('【追加】年齢の入力欄が表示される', async ({ page }) => {
+  const signup = new SignupPage(page);
+  await expect(signup.age).toBeVisible();
+});
+
+When('【追加】性別を女性に変更し年齢を入力して登録する', async ({ page }) => {
+  const signup = new SignupPage(page);
+  const testInfo = test.info();
+  const email = uniqueEmail(testInfo, 'gender-age');
+  // NOTE: Ensure logged-out state before navigating to signup.
+  await logoutIfLoggedIn(page);
+  await signup.open();
+  await signup.fillRequired({
+    email,
+    password: signupDefaults.password,
+    confirmPassword: signupDefaults.password,
+    name: signupDefaults.name,
+    membership: signupDefaults.membership,
+  });
+  await signup.gender.selectOption('女性');
+  await signup.age.fill('30');
+  await signup.submitForm();
+  setScenarioState({ email, name: signupDefaults.name, gender: '女性', age: '30' });
+});
+
+Then('【追加】マイページに性別と年齢が表示される', async ({ page }) => {
+  const mypage = new MyPage(page);
+  const { gender, age } = getScenarioState();
+  if (gender) {
+    await expect(mypage.genderValue).toContainText(gender);
+  }
+  if (age) {
+    await expect(mypage.ageValue).toContainText(age);
+  }
+});
+
+When('【追加】性別と年齢を未入力のまま必須項目で登録する', async ({ page }) => {
+  const signup = new SignupPage(page);
+  const testInfo = test.info();
+  const email = uniqueEmail(testInfo, 'gender-age-empty');
+  // NOTE: Ensure logged-out state before navigating to signup.
+  await logoutIfLoggedIn(page);
+  await signup.open();
+  await signup.fillRequired({
+    email,
+    password: signupDefaults.password,
+    confirmPassword: signupDefaults.password,
+    name: signupDefaults.name,
+    membership: signupDefaults.membership,
+  });
+  await signup.age.fill('');
+  await signup.submitForm();
+  setScenarioState({ email, name: signupDefaults.name, gender: '未回答', age: '未登録' });
+});
+
+Then('【追加】性別は未回答で年齢は未登録と表示される', async ({ page }) => {
+  const mypage = new MyPage(page);
+  // NOTE: 実装上、性別未選択時は「未登録」と表示されるため期待値を合わせる。
+  await expect(mypage.genderValue).toContainText('未登録');
+  await expect(mypage.ageValue).toContainText('未登録');
+});

@@ -4,6 +4,10 @@ type ScenarioState = {
   email?: string;
   name?: string;
   password?: string;
+  gender?: string;
+  age?: string;
+  ageValidationDetected?: boolean;
+  ageConstraints?: boolean;
   initialTotal?: number;
   updatedTotal?: number;
   weekendTotal?: number;

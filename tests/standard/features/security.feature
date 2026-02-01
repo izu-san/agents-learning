@@ -1,5 +1,6 @@
 Feature: セキュリティ
 
+  @security @login @negative
   Scenario: SQLi/XSS風入力でログイン不可
     Given 新しいブラウザ状態でログインページを開く
     When メールとパスワードにSQLi・XSS風の文字列を入力してログインする
@@ -7,11 +8,13 @@ Feature: セキュリティ
     And 画面にスクリプトが実行されない
     And エラーメッセージが安全に表示される
 
+  @security @signup
   Scenario: 登録入力のXSS耐性
     Given 新しいブラウザ状態で会員登録ページを開く
     When 氏名や住所にスクリプト文字列を入力して登録する
     Then マイページで文字列が安全に表示される
 
+  @security @access-control
   Scenario: 不正な直接アクセスの防止
     Given 新しいブラウザ状態で mypage.html に直接アクセスする
     Then ログインページへリダイレクトされるかアクセス拒否が表示される
@@ -20,6 +23,7 @@ Feature: セキュリティ
     Given reserve.html の plan-id を不正な値に改ざんしてアクセスする
     Then 安全なフォールバックが行われる
 
+  @security @reservation @fuzz
   Scenario: plan-id の異常値バリエーション
     Given 新しいブラウザ状態で reserve.html に plan-id を負数で指定してアクセスする
     Then 例外やクラッシュが発生せず安全に扱われる
