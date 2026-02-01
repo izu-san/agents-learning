@@ -16,6 +16,9 @@ export default defineConfig({
   reporter: 'html',
   use: {
     baseURL: 'http://127.0.0.1:8080/ja',
-    trace: 'on-first-retry',
+    trace: 'on', // Enable trace for all tests
+    video: 'on', // Enable video recording for all tests
+    screenshot: 'on', // Always take screenshots
+    actionTimeout: 10000, // 10 seconds for each action
   },
 });
