@@ -40,26 +40,38 @@ forkしたやつを対象にした理由：サイト内容を変更してHealer�
 
 ## 実行結果まとめ
 
-### 最低限の指示のみ
+### 最低限の指示のみ（minimal）
 
 テスト内容やテストコードの生成方法もすべて丸投げ。  
 何も指示を出していない場合。
 
+- オーバービュー: [docs/minimal/overview.md](docs/minimal/overview.md)
 - チャット内容: [docs/minimal/チャット内容.md](docs/minimal/チャット内容.md)
 - Planner成果物: [specs/minimal/e2e-plan.md](specs/minimal/e2e-plan.md)
 - Generator成果物: [tests/minimal/\*.ts](tests/minimal)
 
-### 色々指示だしたやつ
+### 色々指示だしたやつ（standard）
 
 POM, BDD, Gherkin記法で出力させたやつ。
 
+- オーバービュー: [docs/standard/overview.md](docs/standard/overview.md)
 - チャット内容: [docs/standard/チャット内容.md](docs/standard/チャット内容.md)
 - Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
 - Generator成果物: [tests/standard/\*.ts](tests/standard)
 
+### minimalとstandardの違いについて
+
+- 説明資料: [docs/minimal-standard-diff.md](docs/minimal-standard-diff.md)
+
 ### Healerおためし
 
 - チャット内容: [docs/healer/チャット内容.md](docs/healer/チャット内容.md)
+
+### テスト項目の追加
+
+- チャット内容: [docs/add_test/チャット内容.md](docs/add_test/チャット内容.md)
+- Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
+- Generator成果物: [tests/standard/\*.ts](tests/standard)
 
 ## スクリプト一覧
 
