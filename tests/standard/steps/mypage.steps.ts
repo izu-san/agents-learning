@@ -39,16 +39,19 @@ When('ログアウトを実行する', async ({ page }) => {
 });
 
 // NOTE: Avoid '/' in step text to prevent matching issues.
-Then('Cookie・SessionStorage・LocalStorage のログイン情報が削除される', async ({ page, context }) => {
-  const cookies = await context.cookies();
-  const cookieNames = cookies.map((cookie) => cookie.name);
-  const localKeys = await page.evaluate(() => Object.keys(localStorage));
-  const sessionKeys = await page.evaluate(() => Object.keys(sessionStorage));
-  const hasLoginKey = [...cookieNames, ...localKeys, ...sessionKeys].some((key) =>
-    key.toLowerCase().includes('login'),
-  );
-  expect(hasLoginKey).toBeFalsy();
-});
+Then(
+  'Cookie・SessionStorage・LocalStorage のログイン情報が削除される',
+  async ({ page, context }) => {
+    const cookies = await context.cookies();
+    const cookieNames = cookies.map((cookie) => cookie.name);
+    const localKeys = await page.evaluate(() => Object.keys(localStorage));
+    const sessionKeys = await page.evaluate(() => Object.keys(sessionStorage));
+    const hasLoginKey = [...cookieNames, ...localKeys, ...sessionKeys].some((key) =>
+      key.toLowerCase().includes('login'),
+    );
+    expect(hasLoginKey).toBeFalsy();
+  },
+);
 
 Given('新しいブラウザ状態で会員登録しマイページへ遷移する', async ({ page }) => {
   const signup = new SignupPage(page);
@@ -150,7 +153,13 @@ When('【追加】新規会員登録時に性別と年齢を入力してログ�
   await signup.gender.selectOption('女性');
   await signup.age.fill('28');
   await signup.submitForm();
-  setScenarioState({ email, password, name: signupTestData.names.newUser, gender: '女性', age: '28' });
+  setScenarioState({
+    email,
+    password,
+    name: signupTestData.names.newUser,
+    gender: '女性',
+    age: '28',
+  });
 });
 
 Then('【追加】マイページに入力した性別と年齢が表示される', async ({ page }) => {

@@ -135,7 +135,8 @@ Then('合計金額が最小条件に一致する', async ({ page }) => {
   const reserve = new ReservePage(page);
   const total = parsePrice(await reserve.total.innerText());
   setScenarioState({ minTotal: total });
-  const expected = plans.recommended.basePrice * plans.recommended.minNights * plans.recommended.minPeople;
+  const expected =
+    plans.recommended.basePrice * plans.recommended.minNights * plans.recommended.minPeople;
   expect(total).toBe(expected);
 });
 

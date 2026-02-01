@@ -1,11 +1,14 @@
 export type UserKey = 'premium' | 'standard';
 
-export const users: Record<UserKey, {
-  email: string;
-  password: string;
-  name?: string;
-  rank: string;
-}> = {
+export const users: Record<
+  UserKey,
+  {
+    email: string;
+    password: string;
+    name?: string;
+    rank: string;
+  }
+> = {
   premium: {
     email: 'ichiro@example.com',
     password: 'password',

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import { login, users, expectOnMyPage, expectLoggedOutNav } from '../helpers/app';
 
 test.describe('認証（ログイン/ログアウト）', () => {

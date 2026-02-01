@@ -13,7 +13,9 @@ test.describe('宿泊予約', () => {
     await expect(page.getByRole('combobox', { name: '確認のご連絡 必須' })).toBeVisible();
     await expect(page.getByRole('status')).toBeVisible();
 
-    await page.getByRole('combobox', { name: '確認のご連絡 必須' }).selectOption('メールでのご連絡');
+    await page
+      .getByRole('combobox', { name: '確認のご連絡 必須' })
+      .selectOption('メールでのご連絡');
     await expect(page.getByRole('textbox', { name: 'メールアドレス 必須' })).toBeVisible();
 
     await page.getByRole('combobox', { name: '確認のご連絡 必須' }).selectOption('電話でのご連絡');

@@ -6,7 +6,9 @@ test.describe('宿泊予約', () => {
     await page.goto(urls.reserve(0));
 
     await page.getByRole('textbox', { name: '氏名 必須' }).fill('テスト太郎');
-    await page.getByRole('combobox', { name: '確認のご連絡 必須' }).selectOption('メールでのご連絡');
+    await page
+      .getByRole('combobox', { name: '確認のご連絡 必須' })
+      .selectOption('メールでのご連絡');
     await page.getByRole('textbox', { name: 'メールアドレス 必須' }).fill('taro@example.com');
 
     await page.getByRole('button', { name: '予約内容を確認する' }).click();

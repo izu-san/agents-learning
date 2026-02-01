@@ -29,7 +29,9 @@ export class ReservePage {
     this.gender = page.getByRole('combobox', { name: '性別' });
     this.age = page.getByRole('spinbutton', { name: '年齢' });
     this.contact = page.getByRole('combobox', { name: '確認のご連絡 必須' });
-    this.request = page.getByRole('textbox', { name: 'ご要望・ご連絡事項等ありましたらご記入ください' });
+    this.request = page.getByRole('textbox', {
+      name: 'ご要望・ご連絡事項等ありましたらご記入ください',
+    });
     this.submit = page.getByRole('button', { name: '予約内容を確認する' });
     this.total = page.getByRole('status');
   }

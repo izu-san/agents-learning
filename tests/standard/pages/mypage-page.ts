@@ -20,7 +20,10 @@ export class MyPage {
     this.logout = page.getByRole('button', { name: 'ログアウト' });
     this.iconButton = page.getByRole('button', { name: 'アイコン設定' });
     this.withdrawButton = page.getByRole('button', { name: '退会する' });
-    this.emailValue = page.getByRole('heading', { name: 'メールアドレス' }).locator('..').locator('p');
+    this.emailValue = page
+      .getByRole('heading', { name: 'メールアドレス' })
+      .locator('..')
+      .locator('p');
     this.nameValue = page.getByRole('heading', { name: '氏名' }).locator('..').locator('p');
     this.rankValue = page.getByRole('heading', { name: '会員ランク' }).locator('..').locator('p');
     this.genderValue = page.getByRole('heading', { name: '性別' }).locator('..').locator('p');

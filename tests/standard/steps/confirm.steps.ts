@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 import { createBdd, test } from 'playwright-bdd';
 import { ReservePage } from '../pages/reserve-page';
 import { ConfirmPage } from '../pages/confirm-page';
@@ -10,7 +10,7 @@ import { setScenarioState, getScenarioState } from '../helpers/state';
 // NOTE: Use createBdd for playwright-bdd v7 API.
 const { Given, When, Then } = createBdd(test);
 
-async function fillValidReservation(page: any) {
+async function fillValidReservation(page: Page) {
   const reserve = new ReservePage(page);
   await reserve.open(plans.recommended.id);
   const today = new Date();

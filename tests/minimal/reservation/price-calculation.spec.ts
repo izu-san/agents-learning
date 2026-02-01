@@ -44,8 +44,6 @@ test.describe('宿泊予約', () => {
 
     await page.getByRole('textbox', { name: '宿泊日 必須' }).fill(formatDate(nextSaturday));
     await page.getByRole('textbox', { name: '宿泊日 必須' }).press('Tab');
-    await expect
-      .poll(async () => getTotal(page), { timeout: 2000 })
-      .not.toBe(weekdayTotal);
+    await expect.poll(async () => getTotal(page), { timeout: 2000 }).not.toBe(weekdayTotal);
   });
 });

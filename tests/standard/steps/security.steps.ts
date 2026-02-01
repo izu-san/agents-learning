@@ -49,29 +49,38 @@ Then('安全なフォールバックが行われる', async ({ page }) => {
   await expect(page).toHaveURL(/(reserve|index)\.html/);
 });
 
-Given('新しいブラウザ状態で reserve.html に plan-id を負数で指定してアクセスする', async ({ page }) => {
-  const reserve = new ReservePage(page);
-  await reserve.open(-1);
-});
+Given(
+  '新しいブラウザ状態で reserve.html に plan-id を負数で指定してアクセスする',
+  async ({ page }) => {
+    const reserve = new ReservePage(page);
+    await reserve.open(-1);
+  },
+);
 
 Then('例外やクラッシュが発生せず安全に扱われる', async ({ page }) => {
   // NOTE: Fallback may redirect to home; accept reserve or home page.
   await expect(page).toHaveURL(/(reserve|index)\.html/);
 });
 
-Given('新しいブラウザ状態で reserve.html に plan-id を極端に大きい数値で指定してアクセスする', async ({ page }) => {
-  const reserve = new ReservePage(page);
-  await reserve.open(999999);
-});
+Given(
+  '新しいブラウザ状態で reserve.html に plan-id を極端に大きい数値で指定してアクセスする',
+  async ({ page }) => {
+    const reserve = new ReservePage(page);
+    await reserve.open(999999);
+  },
+);
 
 Then('エラー表示または既定プランへのフォールバックが行われる', async ({ page }) => {
   await expect(page).toHaveURL(/(reserve|index)\.html/);
 });
 
-Given('新しいブラウザ状態で reserve.html に plan-id を文字列で指定してアクセスする', async ({ page }) => {
-  const reserve = new ReservePage(page);
-  await reserve.open('abc');
-});
+Given(
+  '新しいブラウザ状態で reserve.html に plan-id を文字列で指定してアクセスする',
+  async ({ page }) => {
+    const reserve = new ReservePage(page);
+    await reserve.open('abc');
+  },
+);
 
 Then('入力が無害化され安全な画面に遷移する', async ({ page }) => {
   await expect(page).toHaveURL(/(reserve|index)\.html/);

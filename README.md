@@ -2,18 +2,18 @@
 
 ## 実行環境
 
-* OS: Windows11 Home 24H2
-* VSCode: 1.108.1
-* Node.js: v22.20.0
-* AIツール: GitHub Copilot
-* モデル: GPT-5.2-Codex
+- OS: Windows11 Home 24H2
+- VSCode: 1.108.1
+- Node.js: v22.20.0
+- AIツール: GitHub Copilot
+- モデル: GPT-5.2-Codex
 
 ## 環境構築
 
 ### 前提条件
 
-* VSCodeインストール済み
-* Node.jsインストール済み
+- VSCodeインストール済み
+- Node.jsインストール済み
 
 ```
 PS F:\Study\playwright\agents-learning> node -v
@@ -45,21 +45,21 @@ forkしたやつを対象にした理由：サイト内容を変更してHealer�
 テスト内容やテストコードの生成方法もすべて丸投げ。  
 何も指示を出していない場合。
 
-* チャット内容: [docs/minimal/チャット内容.md](docs/minimal/チャット内容.md)
-* Planner成果物: [specs/minimal/e2e-plan.md](specs/minimal/e2e-plan.md)
-* Generator成果物: [tests/minimal/*.ts](tests/minimal)
+- チャット内容: [docs/minimal/チャット内容.md](docs/minimal/チャット内容.md)
+- Planner成果物: [specs/minimal/e2e-plan.md](specs/minimal/e2e-plan.md)
+- Generator成果物: [tests/minimal/\*.ts](tests/minimal)
 
 ### 色々指示だしたやつ
 
 POM, BDD, Gherkin記法で出力させたやつ。
 
-* チャット内容: [docs/standard/チャット内容.md](docs/standard/チャット内容.md)
-* Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
-* Generator成果物: [tests/standard/*.ts](tests/standard)
+- チャット内容: [docs/standard/チャット内容.md](docs/standard/チャット内容.md)
+- Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
+- Generator成果物: [tests/standard/\*.ts](tests/standard)
 
 ### Healerおためし
 
-* チャット内容: [docs/healer/チャット内容.md](docs/healer/チャット内容.md)
+- チャット内容: [docs/healer/チャット内容.md](docs/healer/チャット内容.md)
 
 ## スクリプト一覧
 
