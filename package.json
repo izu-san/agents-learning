@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:standard": "cucumber-js --config tests/standard/cucumber.js"
+    "test:standard": "playwright test -c tests/standard/playwright.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
   "devDependencies": {
     "@playwright/test": "^1.58.1",
     "@types/node": "^25.1.0",
+    "playwright-bdd": "^7.0.0",
     "typescript": "^5.7.3"
   }
 }
