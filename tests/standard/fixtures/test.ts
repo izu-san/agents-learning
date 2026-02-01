@@ -25,44 +25,43 @@ export type AuthHelpers = {
   clearAuth: () => Promise<void>;
 };
 
-export const test = base.extend<{ pages: PageObjects; auth: AuthHelpers; avatarPath: string }>(
-  {
-    pages: async ({ page }, use) => {
-      await use({
-        home: new HomePage(page),
-        login: new LoginPage(page),
-        signup: new SignupPage(page),
-        plans: new PlansPage(page),
-        reserve: new ReservePage(page),
-        confirm: new ConfirmPage(page),
-        mypage: new MyPage(page),
-      });
-    },
-    auth: async ({ page }, use) => {
-      await use({
-        loginAs: async (key) => {
-          const login = new LoginPage(page);
-          await login.open();
-          await login.login(users[key].email, users[key].password);
-        },
-        logoutIfLoggedIn: async () => {
-          const logoutButton = page.getByRole('button', { name: 'ログアウト' });
-          if ((await logoutButton.count()) > 0) {
-            await logoutButton.first().click();
-          }
-        },
-        clearAuth: async () => {
-          await page.context().clearCookies();
-          await page.goto(urls.home);
-          await page.evaluate(() => {
-            localStorage.clear();
-            sessionStorage.clear();
-          });
-        },
-      });
-    },
-    avatarPath: async ({}, use) => {
-      await use('tests/standard/fixtures/avatar.svg');
-    },
+export const test = base.extend<{ pages: PageObjects; auth: AuthHelpers; avatarPath: string }>({
+  pages: async ({ page }, use) => {
+    await use({
+      home: new HomePage(page),
+      login: new LoginPage(page),
+      signup: new SignupPage(page),
+      plans: new PlansPage(page),
+      reserve: new ReservePage(page),
+      confirm: new ConfirmPage(page),
+      mypage: new MyPage(page),
+    });
   },
-);
+  auth: async ({ page }, use) => {
+    await use({
+      loginAs: async (key) => {
+        const login = new LoginPage(page);
+        await login.open();
+        await login.login(users[key].email, users[key].password);
+      },
+      logoutIfLoggedIn: async () => {
+        const logoutButton = page.getByRole('button', { name: 'ログアウト' });
+        if ((await logoutButton.count()) > 0) {
+          await logoutButton.first().click();
+        }
+      },
+      clearAuth: async () => {
+        await page.context().clearCookies();
+        await page.goto(urls.home);
+        await page.evaluate(() => {
+          localStorage.clear();
+          sessionStorage.clear();
+        });
+      },
+    });
+  },
+  avatarPath: async ({ page }, use) => {
+    void page;
+    await use('tests/standard/fixtures/avatar.svg');
+  },
+});

@@ -10,10 +10,13 @@ Given('新しいブラウザ状態でホームを開く', async ({ pages }) => {
   await pages.home.open();
 });
 
-Given('新しいブラウザ状態でビューポートをモバイル幅に設定しホームを開く', async ({ page, pages }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await pages.home.open();
-});
+Given(
+  '新しいブラウザ状態でビューポートをモバイル幅に設定しホームを開く',
+  async ({ page, pages }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await pages.home.open();
+  },
+);
 
 Then('ページタイトルに「HOTEL PLANISPHERE」が含まれる', async ({ page }) => {
   await expect(page).toHaveTitle(/HOTEL PLANISPHERE/);

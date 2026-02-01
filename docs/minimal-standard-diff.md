@@ -7,20 +7,20 @@
 
 ## 比較表
 
-| 観点 | minimal/ | standard/ |
-| --- | --- | --- |
-| テスト記述 | Playwrightの`.spec.ts`に直接記述 | Gherkin（`.feature`）+ Step定義 + POM |
-| 設定 | ルートのPlaywright設定を流用 | `tests/standard/playwright.config.ts`で分離 |
-| 生成フロー | なし | `bddgen`で`features-gen/`を生成 |
-| データ管理 | `helpers/app.ts`に固定データ | `data/`にテストデータを分離 |
-| 再利用性 | 低〜中（ヘルパー中心） | 高（Page Objectに集約） |
-| カバレッジ | 主要機能の基本フロー中心 | 主要機能 + エラー + 追加観点（VRT/セキュリティ） |
-| ビジュアル検証 | 明示的には扱わない | ビジュアルスナップショットを前提 |
-| セキュリティ観点 | 最小限 | SQLi/XSS/不正アクセスなどを含む |
-| 実行コマンド | `npm run test:minimal` | `npm run test:standard` / `npm run test:standard:all` |
-| ベースURL | `http://127.0.0.1:8080/ja`（ヘルパーで使用） | `http://127.0.0.1:8080/ja`（標準設定で使用） |
-| 生成ステップ | なし | `bddgen`で`features-gen/`を生成 |
-| 成果物 | HTMLレポート/スクリーンショット/動画/トレース | HTMLレポート/スクリーンショット/動画/トレース + スナップショット |
+| 観点             | minimal/                                      | standard/                                                        |
+| ---------------- | --------------------------------------------- | ---------------------------------------------------------------- |
+| テスト記述       | Playwrightの`.spec.ts`に直接記述              | Gherkin（`.feature`）+ Step定義 + POM                            |
+| 設定             | ルートのPlaywright設定を流用                  | `tests/standard/playwright.config.ts`で分離                      |
+| 生成フロー       | なし                                          | `bddgen`で`features-gen/`を生成                                  |
+| データ管理       | `helpers/app.ts`に固定データ                  | `data/`にテストデータを分離                                      |
+| 再利用性         | 低〜中（ヘルパー中心）                        | 高（Page Objectに集約）                                          |
+| カバレッジ       | 主要機能の基本フロー中心                      | 主要機能 + エラー + 追加観点（VRT/セキュリティ）                 |
+| ビジュアル検証   | 明示的には扱わない                            | ビジュアルスナップショットを前提                                 |
+| セキュリティ観点 | 最小限                                        | SQLi/XSS/不正アクセスなどを含む                                  |
+| 実行コマンド     | `npm run test:minimal`                        | `npm run test:standard` / `npm run test:standard:all`            |
+| ベースURL        | `http://127.0.0.1:8080/ja`（ヘルパーで使用）  | `http://127.0.0.1:8080/ja`（標準設定で使用）                     |
+| 生成ステップ     | なし                                          | `bddgen`で`features-gen/`を生成                                  |
+| 成果物           | HTMLレポート/スクリーンショット/動画/トレース | HTMLレポート/スクリーンショット/動画/トレース + スナップショット |
 
 ## ディレクトリ構成の差
 
