@@ -76,6 +76,10 @@ POM, BDD, Gherkin記法で出力させたやつ。
 - Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
 - Generator成果物: [tests/standard/\*.ts](tests/standard)
 
+### 技術スタックをガチガチに固めてから指示出し
+
+- 追加予定です
+
 ## minimalとstandardの違いについての考察
 
 - 説明資料: [docs/minimal-standard-diff.md](docs/minimal-standard-diff.md)
