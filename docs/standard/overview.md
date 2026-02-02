@@ -26,7 +26,7 @@ flowchart TB
 - Page Object Model（`pages/`）
 - データ駆動（`data/`）
 - 生成フロー（`bddgen`で`features-gen/`を生成）
-- ビジュアルリグレッション（スナップショットを前提）
+- ビジュアルリグレッションテスト
 
 ## テスト設計の特徴
 
@@ -40,5 +40,5 @@ flowchart TB
 - ベースURL: `http://127.0.0.1:8080/ja`
 - 生成: `npm run bddgen:standard`（`features-gen/`を作成）
 - 実行コマンド: `npm run test:standard` / `npm run test:standard:all`
-- ビジュアル更新: `npm run test:standard:vr`
+- VRTのベースライン更新: `npm run test:standard:vrt`
 - レポート/成果物: HTMLレポート（`playwright-report/`）、スクリーンショット/動画/トレース

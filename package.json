@@ -8,7 +8,7 @@
     "bddgen:standard": "bddgen -c tests/standard/bdd.config.js",
     "test:standard:all": "npm run bddgen:standard && npm run test:standard",
     "test:standard": "playwright test -c tests/standard/playwright.config.ts",
-    "test:standard:vr": "playwright test -c tests/standard/playwright.config.ts --update-snapshots",
+    "test:standard:vrt": "playwright test -c tests/standard/playwright.config.ts --update-snapshots",
     "lint": "eslint . --ext .ts,.tsx,.js,.cjs",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.cjs --fix",
     "format": "prettier --write .",

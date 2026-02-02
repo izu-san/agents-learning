@@ -14,6 +14,8 @@
 
 - VSCodeインストール済み
 - Node.jsインストール済み
+- 機密データは入力できない想定（公開情報のみ対象とする）
+  - 機密データを取り扱いたいときはどうする？ → [docs/セキュリティ対応.md](docs/セキュリティ対応.md)
 
 ```
 PS F:\Study\playwright\agents-learning> node -v
@@ -64,10 +66,6 @@ POM, BDD, Gherkin記法で出力させたやつ。
 - Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
 - Generator成果物: [tests/standard/\*.ts](tests/standard)
 
-### minimalとstandardの違いについて
-
-- 説明資料: [docs/minimal-standard-diff.md](docs/minimal-standard-diff.md)
-
 ### Healerおためし
 
 - チャット内容: [docs/healer/チャット内容.md](docs/healer/チャット内容.md)
@@ -77,6 +75,10 @@ POM, BDD, Gherkin記法で出力させたやつ。
 - チャット内容: [docs/add_test/チャット内容.md](docs/add_test/チャット内容.md)
 - Planner成果物: [specs/standard/e2e-plan.md](specs/standard/e2e-plan.md)
 - Generator成果物: [tests/standard/\*.ts](tests/standard)
+
+## minimalとstandardの違いについての考察
+
+- 説明資料: [docs/minimal-standard-diff.md](docs/minimal-standard-diff.md)
 
 ## ディレクトリ構成（簡易）
 
@@ -91,9 +93,10 @@ POM, BDD, Gherkin記法で出力させたやつ。
     - [tests/standard/data/](tests/standard/data/) : テストデータ
     - [tests/standard/fixtures/](tests/standard/fixtures/) : フィクスチャ/共通設定
 
-## スクリプト一覧
+## スクリプト一覧（参考程度に）
 
-以下は `package.json` に定義されているスクリプトの一覧です。
+以下は `package.json` に定義されているスクリプトの一覧です。  
+ローカルでサイトを立ち上げないと失敗する。
 
 ### Minimal テスト用
 
@@ -103,5 +106,5 @@ POM, BDD, Gherkin記法で出力させたやつ。
 
 - `npm run bddgen:standard` : Standard テストの BDD ファイルを生成します。
 - `npm run test:standard` : Standard テストを実行します。
-- `npm run test:standard:vr` : Standard テストのビジュアルリグレッションを実行します。
+- `npm run test:standard:vrt` : ビジュアルリグレッションテストのベースラインを更新します。
 - `npm run test:standard:all` : BDD ファイル生成後に Standard テストを実行します。
