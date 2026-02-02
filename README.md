@@ -15,7 +15,7 @@
 - VSCodeインストール済み
 - Node.jsインストール済み
 - 機密データは入力できない想定（公開情報のみ対象とする）
-  - 機密データを取り扱いたいときはどうする？ → [docs/セキュリティ対応.md](docs/セキュリティ対応.md)
+  - 機密データを取り扱いたいときはどうする？ → [docs/security/セキュリティ対応.md](docs/security/セキュリティ対応.md)
 
 ```
 PS F:\Study\playwright\agents-learning> node -v

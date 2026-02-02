@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__playwright-test__planner_setup_page",
+      "mcp__playwright-test__browser_navigate",
+      "mcp__playwright-test__browser_run_code"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "playwright-test"
+  ]
+}
