@@ -42,9 +42,11 @@ PS F:\Study\playwright\agents-learning> playwright-cli --version
 ↓
 
 ```
-● 会員登録テスト完了 ✓                                                                                                                                                                         
-  Playwrightを使用して、http://127.0.0.1:8080/ja/ のサイトの会員登録をテストしました。以下のテストケースが正常に実行されました：                                                               
-  テスト結果                                                                                                                                                                                 
+● 会員登録テスト完了 ✓
+  Playwrightを使用して、http://127.0.0.1:8080/ja/ のサイトの会員登録をテストしました。
+  以下のテストケースが正常に実行されました：
+  
+  テスト結果
   
   1. 会員登録フロー
   - 会員登録画面へのアクセス ✓
@@ -82,12 +84,14 @@ Playwright AgentsにてMCPを使用した場合と `playwright-cli` を使用し
 1. `/clear`コマンド実行直後のコンテキスト長を確認
 
 ```
-❯ /context                                                                                                                                                                                                    
+❯ /context
   ⎿  Context Usage
-     ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛀   arn:aws:bedrock:us-east-1:xxx:inference-profile/u                                                                                                                         
+     ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛀   arn:aws:bedrock:us-east-1:xxx:inference-profile/u
      ⛁ ⛁ ⛁ ⛁ ⛀ ⛀ ⛀ ⛶ ⛶ ⛶   iku-4-5-20251001-v1:0 · 29k/200k tokens (15%)
-     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶                                                                                                                                                                                           ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   Estimated usage by category
-     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System prompt: 2.5k tokens (1.2%)                                                                                                                                                     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System tools: 17.1k tokens (8.5%)
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   Estimated usage by category
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System prompt: 2.5k tokens (1.2%)
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System tools: 17.1k tokens (8.5%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ MCP tools: 9.2k tokens (4.6%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ Custom agents: 285 tokens (0.1%)
      ⛶ ⛶ ⛶ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝   ⛁ Messages: 122 tokens (0.1%)
@@ -106,12 +110,13 @@ http://127.0.0.1:8080/ja/
 3. Planner実行後のコンテキスト長
 
 ```
-❯ /context                                                                                                                                                                                                    
+❯ /context
   ⎿  Context Usage
-     ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛀   arn:aws:bedrock:us-east-1:xxx:inference-profile/u                                                                                                                         
+     ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛀   arn:aws:bedrock:us-east-1:xxx:inference-profile/u
      ⛁ ⛁ ⛁ ⛁ ⛀ ⛀ ⛁ ⛁ ⛶ ⛶   iku-4-5-20251001-v1:0 · 30k/200k tokens (15%)
-     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶                                                                                                                                                                                           ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   Estimated usage by category
-     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System prompt: 2.5k tokens (1.2%)                                                                                                                                                
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   Estimated usage by category
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System prompt: 2.5k tokens (1.2%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System tools: 17.1k tokens (8.5%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ MCP tools: 9.2k tokens (4.6%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ Custom agents: 285 tokens (0.1%)
@@ -129,13 +134,14 @@ http://127.0.0.1:8080/ja/
 1. `/clear`コマンド実行直後のコンテキスト長を確認
 
 ```
-❯ /context                                                                                                                                                                                   
+❯ /context
   ⎿  Context Usage
-     ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛀   arn:aws:bedrock:us-east-1:xxx:inference-profile/u                                                                                                        
-     ⛀ ⛀ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   iku-4-5-20251001-v1:0 · 19k/200k tokens (10%)                                                                                                                     
+     ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛀   arn:aws:bedrock:us-east-1:xxx:inference-profile/u
+     ⛀ ⛀ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   iku-4-5-20251001-v1:0 · 19k/200k tokens (10%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ 
-     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   Estimated usage by category                                                                                                                                            ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System prompt: 2.5k tokens (1.3%)
-     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System tools: 16.4k tokens (8.2%)                                                                                                                               
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   Estimated usage by category
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System prompt: 2.5k tokens (1.3%)
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System tools: 16.4k tokens (8.2%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ Custom agents: 285 tokens (0.1%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ Skills: 72 tokens (0.0%)
      ⛶ ⛶ ⛶ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝   ⛁ Messages: 122 tokens (0.1%)
@@ -154,12 +160,14 @@ http://127.0.0.1:8080/ja/
 3. Planner実行後のコンテキスト長
 
 ```
- /context                                                                                                                                                                                   
+ ❯ /context
   ⎿  Context Usage
-     ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛀   arn:aws:bedrock:us-east-1:xxx:inference-profile/u                                                                                                        
-     ⛀ ⛁ ⛁ ⛁ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   iku-4-5-20251001-v1:0 · 24k/200k tokens (12%)                                                                                                                     
-     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶                                                                                                                                                                          ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   Estimated usage by category
-     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System prompt: 2.5k tokens (1.3%)                                                                                                                                    ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System tools: 16.4k tokens (8.2%)
+     ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛁ ⛀   arn:aws:bedrock:us-east-1:xxx:inference-profile/u
+     ⛀ ⛁ ⛁ ⛁ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   iku-4-5-20251001-v1:0 · 24k/200k tokens (12%)
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   Estimated usage by category
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System prompt: 2.5k tokens (1.3%)
+     ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ System tools: 16.4k tokens (8.2%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ Custom agents: 285 tokens (0.1%)
      ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶ ⛶   ⛁ Skills: 72 tokens (0.0%)
      ⛶ ⛶ ⛶ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝ ⛝   ⛁ Messages: 7.0k tokens (3.5%)
