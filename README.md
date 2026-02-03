@@ -7,11 +7,24 @@
 
 ## 実行環境
 
+2026/02/03 時点の最新データです。
+
+### 共通
+
 - OS: Windows11 Home 24H2
-- VSCode: 1.108.1
 - Node.js: v22.20.0
+
+### VSCode
+
+- VSCode: 1.108.1
 - AIツール: GitHub Copilot Pro
 - モデル: GPT-5.2-Codex
+
+### Claude Code
+
+- バージョン: 2.1.29
+- モデル: Claude Haiku 4.5 with AWS Bedrock
+  - 従量課金なので安めのモデルにしている
 
 ## 環境構築
 
@@ -50,6 +63,8 @@ https://github.com/izu-san/hotel-example-site
 
 forkしたやつを対象にした理由：サイト内容を変更してHealerの実行結果を確かめたかったから
 
+---
+
 ## 実行結果まとめ
 
 ### 最低限の指示のみ（minimal）
@@ -84,10 +99,18 @@ POM, BDD, Gherkin記法で出力させたやつ。
 ### 技術スタックをガチガチに固めてから指示出し
 
 - 追加予定です
+  - 観点をガッツリ洗い出してからPlannerに指示
+  - 使用する技術スタックやコードサンプルなどをガッツリ洗い出してからGeneratorに指示
 
 ## minimalとstandardの違いについての考察
 
 - 説明資料: [docs/minimal-standard-diff.md](docs/minimal-standard-diff.md)
+
+## `playwright-cli`使ってみた
+
+- 説明資料: [docs/cli/playwright-cli.md](docs/cli/playwright-cli.md)
+
+---
 
 ## ディレクトリ構成（簡易）
 
@@ -117,3 +140,13 @@ POM, BDD, Gherkin記法で出力させたやつ。
 - `npm run test:standard` : Standard テストを実行します。
 - `npm run test:standard:vrt` : ビジュアルリグレッションテストのベースラインを更新します。
 - `npm run test:standard:all` : BDD ファイル生成後に Standard テストを実行します。
+
+---
+
+## 変更履歴
+
+- 2026/02/03:
+  - 「変更履歴」セクションを追加
+  - 「`playwright-cli`使ってみた」セクションを追加
+- 2026/02/02: 
+  - 初版作成
