@@ -1,7 +1,7 @@
 # `playwright-cli` 使ってみた
 
 無理やり設定してPlaywright Agentsから`playwright-cli`を呼び出しては見たものの、  
-ゴリ押しがすぎるので正しい手順を知りたいところ。
+ゴリ押しがすぎるので正しい手順を知りたいところ。  
 そもそもPlaywright Agentsから呼び出すものじゃない？詳しく調査する必要ある。
 
 ## `playwright-cli` is なに？
